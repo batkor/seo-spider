@@ -1,0 +1,31 @@
+<table class="table table-sm">
+    <thead>
+        <tr class="table-header-row">
+            <template x-for="(item, index) in getHeaders()" :key="index">
+                <th scope="col" x-text="item" :class="getColumnClasses(index)"></th>
+            </template>
+        </tr>
+    </thead>
+    <tbody>
+    <template x-for="(itemUrl, indexUrl) in $store.parse.urls" :key="indexUrl">
+        <tr :class="getRowClasses(itemUrl)">
+            <template x-for="(itemColumn, indexColumn) in getColumns()" :key="indexColumn">
+                <th
+                    :scope="itemColumn.id === 'delta' ? 'row' : ''"
+                    :class="getColumnClasses(indexColumn)">
+                    <template x-if="itemColumn.id === 'delta'">
+                        <div scope="row" x-text="indexUrl + 1" class="cell-content"></div>
+                    </template>
+                    <template x-if="itemColumn.id !== 'delta'">
+                        <div
+                                x-text="getValue(itemUrl, itemColumn.value_path)"
+                                class="cell-content"
+                                x-bind:title="itemColumn.id === 'url' ? getValue(itemUrl, itemColumn.value_path) : ''"
+                        ></div>
+                    </template>
+                </th>
+            </template>
+        </tr>
+    </template>
+    </tbody>
+</table>

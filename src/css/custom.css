@@ -1,0 +1,25 @@
+.parse-table-wrapper {
+  overflow: auto;
+  max-height: 50vh;
+  font-size: .7rem;
+}
+
+.table-row {
+  white-space: nowrap;
+}
+
+.col-status_code,
+.col-status_code .cell-content {
+  width: 80px;
+}
+
+.col-url,
+.col-url .cell-content {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row-404 {
+  color: red;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';">
+    <title>SEO spider</title>
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/custom.css">
+  </head>
+  <body class="p-2">
+    <div class="container-fluid" x-data="table">
+      <div class="row">
+        <div class="col-auto">
+          <div class="mb-3" >
+            <label for="url" class="form-label visually-hidden">Url</label>
+            <input
+              type="email"
+              class="form-control"
+              id="url"
+              placeholder="Base URL"
+              x-model="$store.parse.base_url"
+            >
+          </div>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3" x-data="parser" @click="parse">Parse</button>
+        </div>
+      </div>
+      <div class="row gx-5">
+        <div class="col-9">
+          <div class="row">
+            {% include 'template/filter-parse-table.twig' %}
+          </div>
+          <div class="row">
+            <div class="col parse-table-wrapper">
+              {% include 'template/parse-table.twig' %}
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="row">
+            <div class="col">
+              <div>
+                Всего страниц: <span x-text="$store.stats.summary.urls.total"></span>
+              </div>
+              <div>
+                Не найдено: <span x-text="$store.stats.summary.urls['404'] || 0"></span>
+              </div>
+              <div>
+                Редирект: <span x-text="$store.stats.summary.urls['301'] || 0"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script defer src="./assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script defer src="./js/index.js"></script>
+  </body>
+</html>

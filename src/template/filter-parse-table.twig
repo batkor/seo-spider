@@ -1,0 +1,11 @@
+<div class="col filter" x-show="$store.stats.summary.urls.total">
+    <template x-for="(item, index) in getCodeFilters()" :key="index">
+        <button type="button"
+                class="btn"
+                :class="active_code === item.key ? 'btn-primary' : 'btn-outline-primary'"
+                x-on:click="byCode(item.key)">
+            <span x-text="item.label"></span>
+            <span x-text="item.count"></span>
+        </button>
+    </template>
+</div>
