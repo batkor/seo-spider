@@ -1,12 +1,19 @@
 const { getStatusText } = require('http-status-codes');
+import statsDefault from './stats/default.js'
 
 export default () => ({
-  parse() {
+  resetData() {
     this.$store.parse.urls = [];
     this.$store.parse.run = true;
-    this.request(this.$store.parse.base_url).then(() => {
-      this.$store.parse.run = false;
-    });
+    this.$store.stats = statsDefault();
+  },
+  parse() {
+    this.resetData()
+    this.$nextTick(() => {
+      this.request(this.$store.parse.base_url).then(() => {
+        this.$store.parse.run = false;
+      });
+    })
   },
   async request(url) {
     if (this.$store.parse.urls.length >= 10) {

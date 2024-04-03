@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs'
 import table from './table.js'
 import parser from './parser.js'
+import statsDefault from './stats/default.js'
 
 Alpine.data('table', table)
 Alpine.data('parser', parser)
@@ -11,16 +12,7 @@ Alpine.store('parse', {
   urls: [],
 });
 
-Alpine.store('stats', {
-  summary: {
-    urls: {
-      total: 0
-    },
-    html: 0,
-    js: 0,
-    image: 0,
-  },
-});
+Alpine.store('stats', statsDefault());
 
 Alpine.store('main', {
   table_columns: [

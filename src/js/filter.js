@@ -18,6 +18,22 @@ export default () => ({
 
     return this.code_filters.sort((a, b) => a.key === 'total' ? -1 : a.key - b.key);
   },
+  byUrl(e) {
+    if (!!!e.target.value) {
+      document
+        .querySelectorAll('.table-row')
+        .forEach(el => el.classList.toggle('visually-hidden', false));
+    }
+    let q = e.target.value.replace(/ +/g, ' ').toLowerCase();
+    document
+      .querySelectorAll('.table-row .col-url .cell-content')
+      .forEach(el => {
+        el
+          .closest('.table-row')
+          .classList
+          .toggle('visually-hidden', el.innerText.trim().indexOf(q) === -1);
+    })
+  },
   byCode(value) {
     let rows = document.querySelectorAll('.table-row');
     rows.forEach(el => {
