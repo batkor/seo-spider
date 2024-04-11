@@ -1,0 +1,82 @@
+<ul class="nav nav-tabs" id="reports" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button
+                class="nav-link active"
+                id="general-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#general"
+                type="button"
+                role="tab"
+                aria-controls="general"
+                aria-selected="true">General</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button
+                class="nav-link disabled"
+                id="current-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#current"
+                type="button"
+                role="tab"
+                aria-controls="current"
+                aria-selected="false">Current</button>
+    </li>
+</ul>
+<div class="tab-content" id="reportsContent">
+    <div
+            class="tab-pane fade show active"
+            id="general"
+            role="tabpanel"
+            aria-labelledby="general-tab">
+        <nav class="container">
+            <ul class="list-unstyled">
+               <li x-data="{open: true}">
+                   <span x-on:click="open = !open" class="pe-pointer">
+                       Всего: <span x-text="$store.stats.summary.urls.total"></span>
+                   </span>
+
+                   <ul x-show="open" x-transition>
+                       <li>
+                           HTML: <span x-text="$store.stats.totalUrls()"></span>
+                       </li>
+                       <li>
+                           JS: <span x-text="$store.stats.summary.js || 0"></span>
+                       </li>
+                       <li>
+                           CSS: <span x-text="$store.stats.summary.css || 0"></span>
+                       </li>
+                       <li>
+                           IMAGES: <span x-text="$store.stats.summary.image || 0"></span>
+                       </li>
+                       <li>
+                           Internal: <span x-text="$store.stats.summary.internal || 0"></span>
+                       </li>
+                       <li>
+                           External: <span x-text="$store.stats.summary.external || 0"></span>
+                       </li>
+                   </ul>
+               </li>
+                <li x-data="{open: true}">
+                   <span x-on:click="open = !open" class="pe-pointer">
+                       По коду ответа:
+                   </span>
+                    <ul x-show="open" x-transition>
+                        <li>
+                            2XX: <span x-text="$store.stats.responseCodeItems()['2xx'] || 0"></span>
+                        </li>
+                        <li>
+                            3XX: <span x-text="$store.stats.responseCodeItems()['3xx'] || 0"></span>
+                        </li>
+                        <li class="text-danger">
+                            4XX: <span x-text="$store.stats.responseCodeItems()['4xx'] || 0"></span>
+                        </li>
+                        <li class="text-danger">
+                            5XX: <span x-text="$store.stats.responseCodeItems()['5xx'] || 0"></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="current-tab">...</div>
+</div>

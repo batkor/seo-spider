@@ -23,12 +23,13 @@
             >
           </div>
         </div>
-        <div class="col">
-          <button type="submit" class="btn btn-primary mb-3" x-data="parser" @click="parse">Parse</button>
+        <div class="col" x-data="parser">
+          <button type="submit" class="btn btn-primary mb-3"  @click="parse">Start</button>
+          <button type="submit" class="btn btn-primary mb-3" @click="stop">Stop</button>
         </div>
       </div>
       <div class="row container">
-        <div class="col-9">
+        <div class="col-8">
           <div class="row">
             {% include 'template/filter-parse-table.twig' %}
           </div>
@@ -38,18 +39,10 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <div class="row">
             <div class="col">
-              <div>
-                Всего страниц: <span x-text="$store.stats.summary.urls.total"></span>
-              </div>
-              <div>
-                Не найдено: <span x-text="$store.stats.summary.urls['404'] || 0"></span>
-              </div>
-              <div>
-                Редирект: <span x-text="$store.stats.summary.urls['301'] || 0"></span>
-              </div>
+              {% include 'template/report.twig' %}
             </div>
           </div>
         </div>

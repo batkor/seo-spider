@@ -51,6 +51,13 @@ Alpine.store('main', {
       value_path: 'status',
     },
     {
+      id: 'charset',
+      label: 'Charset',
+      show: true,
+      weight: 4,
+      value_path: 'meta.charset',
+    },
+    {
       id: 'title',
       label: 'Title',
       show: true,
@@ -63,6 +70,20 @@ Alpine.store('main', {
       show: true,
       weight: 6,
       value_path: 'meta.description',
+    },
+    {
+      id: 'request_time',
+      label: 'Time',
+      show: true,
+      weight: 7,
+      value_path: 'request_time',
+    },
+    {
+      id: 'canonical',
+      label: 'Canonical',
+      show: true,
+      weight: 8,
+      value_path: 'link.canonical.0',
     },
   ],
 });

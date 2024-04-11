@@ -39,7 +39,7 @@ export default () => ({
     let output = data;
 
     for(let key of keys) {
-      output = output[key];
+      output = output[key] ?? '';
     }
 
     return output;

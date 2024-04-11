@@ -1,10 +1,12 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
 
-require('electron-reload')(path.join(__dirname, './public'), {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-  hardResetMethod: 'exit'
-});
+if (process.env.NODE_ENV === 'development') {
+  require('electron-reload')(path.join(__dirname, './public'), {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+    hardResetMethod: 'exit'
+  });
+}
 
 const createWindow = () => {
   const win = new BrowserWindow({

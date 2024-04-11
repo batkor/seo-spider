@@ -4,20 +4,24 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build:js": "npx webpack",
-    "run:electron": "electron .",
-    "dev": "concurrently --kill-others \"npm run build:js\" \"npm run run:electron\""
+    "build:dev:js": "export NODE_ENV=development && npx webpack",
+    "build:prod:js": "export NODE_ENV=production && npx webpack",
+    "run:dev:electron": "export NODE_ENV=development && electron .",
+    "run:prod:electron": "export NODE_ENV=production && electron .",
+    "dev": "concurrently --kill-others \"npm run build:dev:js\" \"npm run run:dev:electron\""
   },
-  "author": "",
+  "author": "batkor",
   "license": "ISC",
   "engines": {
     "npm": ">=10.2.4",
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@electron/packager": "^18.3.2",
     "alpinejs": "^3.13.7",
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
+    "content-type": "^1.0.5",
     "electron": "^29.1.4",
     "electron-reload": "^2.0.0-alpha.1",
     "filemanager-webpack-plugin": "^8.0.0",

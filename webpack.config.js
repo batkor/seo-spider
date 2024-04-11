@@ -3,9 +3,10 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 const WatchExternalFilesPlugin = require('webpack-watch-external-files-plugin');
 const Twig = require('twig');
 const fs = require('node:fs');
+console.log();
 
 module.exports = {
-  mode: 'none',
+  mode: process.env.NODE_ENV,
   watch: true,
   cache: false,
   entry: path.resolve(__dirname, 'src/js/index.js'),

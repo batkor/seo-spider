@@ -1,19 +1,28 @@
 .parse-table-wrapper {
   overflow: auto;
   max-height: 50vh;
-  font-size: .7rem;
+  /*font-size: .7rem;*/
+  padding: 0;
 }
 
+.table-header-row .col,
 .table-row {
   white-space: nowrap;
 }
 
+.col-content_type,
+.col-content_type .cell-content {
+  width: 200px;
+}
+
 .col-status_code,
 .col-status_code .cell-content {
-  width: 80px;
+  width: 130px;
 }
 
 .col-url,
+.col-canonical,
+.col-canonical .cell-content,
 .col-url .cell-content {
   width: 200px;
   overflow: hidden;
@@ -22,4 +31,8 @@
 
 .table-row-404 {
   color: red;
+}
+
+.pe-pointer {
+  cursor: pointer;
 }
