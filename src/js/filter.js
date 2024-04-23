@@ -1,6 +1,12 @@
 export default () => ({
   active_code: 'total',
   code_filters: [],
+  resetFilters() {
+    this.active_code = 'total';
+    document
+      .querySelectorAll('.table-row')
+      .forEach(el => el.classList.toggle('visually-hidden', false))
+  },
   getCodeFilters() {
     for (let key in this.$store.stats.summary.urls) {
       let i = this.code_filters.findIndex(el => el.key === key);
@@ -35,15 +41,38 @@ export default () => ({
     })
   },
   byCode(value) {
+    let selector = '.table-row.status-' + value;
+    if (value === '2xx') {
+      selector = '[class*="status-2"]'
+    }
+    else if (value === '3xx') {
+      selector = '[class*="status-3"]'
+    }
+    else if (value === '4xx') {
+      selector = '[class*="status-4"]'
+    }
+    else if (value === '5xx') {
+      selector = '[class*="status-5"]'
+    }
     let rows = document.querySelectorAll('.table-row');
     rows.forEach(el => {
       if (value !== 'total') {
-        el.classList.toggle('visually-hidden', !el.matches('.table-row.status-' + value));
+        el.classList.toggle('visually-hidden', !el.matches(selector));
       }
       else {
         el.classList.toggle('visually-hidden', false);
       }
     });
     this.active_code = value;
+  },
+  byContentType(value) {
+    let cells = document.querySelectorAll('.table-row .col-content_type .cell-content');
+    cells.forEach(el => {
+      el
+        .closest('.table-row')
+        .classList
+        .toggle('visually-hidden', el.innerText.indexOf(value) === -1);
+    });
+    this.active_code = '';
   }
 })

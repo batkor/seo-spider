@@ -3,15 +3,15 @@
         <input
                 type="text"
                 placeholder="Поиск по URL"
-                x-bind:disabled="!$store.stats.summary.urls.total"
                 @keyup.debounce="byUrl($event)"
+                x-bind:disabled="!$store.stats.summary.urls.total || $store.parse.run"
         >
     </div>
     <div class="row filters-code row-cols-auto">
         <template x-for="(item, index) in getCodeFilters()" :key="index">
             <button type="button"
                     class="col btn me-1"
-                    x-bind:disabled="!$store.stats.summary.urls.total"
+                    x-bind:disabled="!$store.stats.summary.urls.total || $store.parse.run"
                     :class="active_code === item.key ? 'btn-primary' : 'btn-outline-primary'"
                     x-on:click="byCode(item.key)">
                 <span x-text="item.label"></span>

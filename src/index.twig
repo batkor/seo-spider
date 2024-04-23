@@ -24,8 +24,7 @@
           </div>
         </div>
         <div class="col" x-data="parser">
-          <button type="submit" class="btn btn-primary mb-3"  @click="parse">Start</button>
-          <button type="submit" class="btn btn-primary mb-3" @click="stop">Stop</button>
+          <button type="submit" class="btn btn-primary mb-3"  @click="parse" x-text="!$store.parse.run ? 'Start' : 'Stop'"></button>
         </div>
       </div>
       <div class="row container">

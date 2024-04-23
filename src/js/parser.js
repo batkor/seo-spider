@@ -6,6 +6,7 @@ export default () => ({
   resetData() {
     this.$store.parse.urls = [];
     this.$store.parse.run = true;
+    this.base_url = false;
     this.$store.stats = statsDefault();
   },
   /**
@@ -22,10 +23,12 @@ export default () => ({
 
     return this.base_url;
   },
-  stop() {
-    this.$store.parse.run = false;
-  },
   parse() {
+    if (this.$store.parse.run) {
+      this.$store.parse.run = false;
+      return;
+    }
+
     this.resetData()
     this.$nextTick(() => {
       this.request(this.getBaseUrl().href).then(() => {
@@ -60,15 +63,18 @@ export default () => ({
       'url': url.href,
     };
     let startFetch = Date.now();
-    let htmlDoc = await fetch(url.href, {
-      redirect: 'manual'
-    })
+    let htmlDoc = await fetch(url.href)
       .then(response => {
         let endFetch = new Date(Date.now() - startFetch);
         data['request_time'] = endFetch.getSeconds() + '.' + endFetch.getMilliseconds();
         data['status_code'] = response.status;
         try {
-          data['status'] = getStatusText(response.status);
+          if (response.redirected) {
+            data['status_code'] = data['status'] = 301;
+          }
+          else {
+            data['status'] = getStatusText(response.status);
+          }
         }
         catch (e) {
           console.log(e);
@@ -77,13 +83,13 @@ export default () => ({
         data['headers'] = Object.fromEntries(response.headers);
         console.log(url.href, response);
 
-        if (!this.$store.stats.summary.urls.hasOwnProperty(response.status)) {
-          this.$store.stats.summary.urls[response.status] = 0;
+        if (!this.$store.stats.summary.urls.hasOwnProperty(data['status_code'])) {
+          this.$store.stats.summary.urls[data['status_code']] = 0;
         }
 
-        this.$store.stats.summary.urls[response.status]++;
-
-        if (data['headers'].hasOwnProperty('content-type')) {
+        this.$store.stats.summary.urls[data['status_code']]++;
+        console.log(this.$store.stats.summary.urls);
+        if (data['status'] !== 301 && data['headers'].hasOwnProperty('content-type')) {
           if (data['headers']['content-type'].includes('text/html')) {
             return response.text();
           }
