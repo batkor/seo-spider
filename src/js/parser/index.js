@@ -1,5 +1,8 @@
 const { getStatusText } = require('http-status-codes');
-import statsDefault from './stats/default.js'
+import statsDefault from '../stats.js'
+import indexable from './indexable.js'
+
+window.IndexCheck = indexable();
 
 export default () => ({
   base_url: false,
@@ -63,6 +66,11 @@ export default () => ({
       'url': url.href,
     };
     let startFetch = Date.now();
+    IndexCheck
+      .getParser(this.$store.parse.base_url.replace(/\/$/, "") + '/robots.txt')
+      .then(checker => {
+        checker.isAllowed(url)
+      })
     let htmlDoc = await fetch(url.href)
       .then(response => {
         let endFetch = new Date(Date.now() - startFetch);
@@ -88,7 +96,6 @@ export default () => ({
         }
 
         this.$store.stats.summary.urls[data['status_code']]++;
-        console.log(this.$store.stats.summary.urls);
         if (data['status'] !== 301 && data['headers'].hasOwnProperty('content-type')) {
           if (data['headers']['content-type'].includes('text/html')) {
             return response.text();

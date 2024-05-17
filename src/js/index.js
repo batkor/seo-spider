@@ -1,7 +1,7 @@
 import Alpine from 'alpinejs'
 import table from './table.js'
-import parser from './parser.js'
-import statsDefault from './stats/default.js'
+import parser from './parser/index.js'
+import statsDefault from './stats.js'
 
 Alpine.data('table', table)
 Alpine.data('parser', parser)

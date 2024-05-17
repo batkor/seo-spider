@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
 
 if (process.env.NODE_ENV === 'development') {
+  process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
   require('electron-reload')(path.join(__dirname, './public'), {
     electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
     hardResetMethod: 'exit'
