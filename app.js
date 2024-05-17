@@ -10,11 +10,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 1000,
-    height: 600
-  });
-  win.webContents.openDevTools()
+  const win = new BrowserWindow();
+  win.webContents.openDevTools();
+  win.maximize();
   win.loadFile(path.join(__dirname, './public/index.html'));
 }
 
