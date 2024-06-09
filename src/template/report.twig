@@ -1,36 +1,10 @@
-<ul class="nav nav-tabs" id="reports" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button
-                class="nav-link active"
-                id="general-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#general"
-                type="button"
-                role="tab"
-                aria-controls="general"
-                aria-selected="true">General</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button
-                class="nav-link disabled"
-                id="current-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#current"
-                type="button"
-                role="tab"
-                aria-controls="current"
-                aria-selected="false">Current</button>
-    </li>
-</ul>
-<div class="tab-content reports-content" id="reportsContent">
-    <div
-            class="tab-pane fade show active"
-            id="general"
-            role="tabpanel"
-            aria-labelledby="general-tab">
-        <nav class="container">
-            <ul class="list-unstyled">
-               <li x-data="{open: true}">
+<div class="reports-content">
+    <template x-if="$store.single_stat.visible">
+        <div>single</div>
+    </template>
+    <template x-if="!$store.single_stat.visible">
+        <ul class="list-unstyled">
+        <li x-data="{open: true}">
                    <span class="pe-pointer">
                        <span x-on:click="open = !open;" class="total-report" :class="open ? 'is-open' : ''"></span>
                        <span x-on:click="resetFilters()">
@@ -38,51 +12,47 @@
                        </span>
                    </span>
 
-                   <ul x-show="open" x-transition>
-                       <li x-on:click="byContentType('html')" class="pe-pointer">
-                           HTML: <span x-text="$store.stats.totalUrls()"></span>
-                       </li>
-                       <li class="pe-pointer" x-on:click="byContentType('javascript')">
-                           JS: <span x-text="$store.stats.summary.js || 0"></span>
-                       </li>
-                       <li class="pe-pointer" x-on:click="byContentType('css')">
-                           CSS: <span x-text="$store.stats.summary.css || 0"></span>
-                       </li>
-                       <li class="pe-pointer" x-on:click="byContentType('image')">
-                           IMAGES: <span x-text="$store.stats.summary.image || 0"></span>
-                       </li>
-                       <li class="pe-pointer">
-                           Internal: <span x-text="$store.stats.summary.internal || 0"></span>
-                       </li>
-                       <li class="pe-pointer">
-                           External: <span x-text="$store.stats.summary.external || 0"></span>
-                       </li>
-                   </ul>
-               </li>
-                <li x-data="{open: true}">
-                   <span class="pe-pointer">
-                       <span x-on:click="open = !open" class="total-report" :class="open ? 'is-open' : ''"></span>
-                       <span x-on:click="resetFilters()">
-                           По коду ответа:
-                       </span>
-                   </span>
-                    <ul x-show="open" x-transition>
-                        <li x-on:click="byCode('2xx')">
-                            2XX: <span x-text="$store.stats.responseCodeItems()['2xx'] || 0"></span>
-                        </li>
-                        <li x-on:click="byCode('3xx')">
-                            3XX: <span x-text="$store.stats.responseCodeItems()['3xx'] || 0"></span>
-                        </li>
-                        <li class="text-danger" x-on:click="byCode('4xx')">
-                            4XX: <span x-text="$store.stats.responseCodeItems()['4xx'] || 0"></span>
-                        </li>
-                        <li class="text-danger" x-on:click="byCode('5xx')">
-                            5XX: <span x-text="$store.stats.responseCodeItems()['5xx'] || 0"></span>
-                        </li>
-                    </ul>
+            <ul x-show="open" x-transition>
+                <li x-on:click="byContentType('html')" class="pe-pointer">
+                    HTML: <span x-text="$store.stats.totalUrls()"></span>
+                </li>
+                <li class="pe-pointer" x-on:click="byContentType('javascript')">
+                    JS: <span x-text="$store.stats.summary.js || 0"></span>
+                </li>
+                <li class="pe-pointer" x-on:click="byContentType('css')">
+                    CSS: <span x-text="$store.stats.summary.css || 0"></span>
+                </li>
+                <li class="pe-pointer" x-on:click="byContentType('image')">
+                    IMAGES: <span x-text="$store.stats.summary.image || 0"></span>
+                </li>
+                <li class="pe-pointer">
+                    Internal: <span x-text="$store.stats.summary.internal || 0"></span>
+                </li>
+                <li class="pe-pointer">
+                    External: <span x-text="$store.stats.summary.external || 0"></span>
                 </li>
             </ul>
-        </nav>
-    </div>
-    <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="current-tab">...</div>
+        </li>
+        <li x-data="{open: true}">
+                   <span class="pe-pointer">
+                       <span x-on:click="open = !open" class="total-report" :class="open ? 'is-open' : ''"></span>
+                       <span x-on:click="resetFilters()">По коду ответа</span>
+                   </span>
+            <ul x-show="open" x-transition>
+                <li x-on:click="byCode('2xx')">
+                    2XX: <span x-text="$store.stats.responseCodeItems()['2xx'] || 0"></span>
+                </li>
+                <li x-on:click="byCode('3xx')">
+                    3XX: <span x-text="$store.stats.responseCodeItems()['3xx'] || 0"></span>
+                </li>
+                <li class="text-danger" x-on:click="byCode('4xx')">
+                    4XX: <span x-text="$store.stats.responseCodeItems()['4xx'] || 0"></span>
+                </li>
+                <li class="text-danger" x-on:click="byCode('5xx')">
+                    5XX: <span x-text="$store.stats.responseCodeItems()['5xx'] || 0"></span>
+                </li>
+            </ul>
+        </li>
+</ul>
+    </template>
 </div>

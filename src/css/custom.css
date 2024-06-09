@@ -29,6 +29,10 @@
   text-overflow: ellipsis;
 }
 
+.table-row:hover .col {
+  background-color: var(--bs-secondary-bg);
+}
+
 .table-row-404 {
   color: red;
 }

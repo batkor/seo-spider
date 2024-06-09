@@ -30,6 +30,7 @@ export default () => ({
   getRowClasses(item) {
     return [
       'table-row',
+      'pe-pointer',
       'status-' + item.status_code,
       item.status_code === 404 ? 'table-danger' : ''
     ];

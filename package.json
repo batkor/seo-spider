@@ -22,7 +22,7 @@
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
     "content-type": "^1.0.5",
-    "electron": "^29.1.4",
+    "electron": "^30.0.9",
     "electron-reload": "^2.0.0-alpha.1",
     "filemanager-webpack-plugin": "^8.0.0",
     "http-status-codes": "^2.3.0",

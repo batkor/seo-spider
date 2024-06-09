@@ -69,7 +69,9 @@ export default () => ({
     IndexCheck
       .getParser(this.$store.parse.base_url.replace(/\/$/, "") + '/robots.txt')
       .then(checker => {
-        checker.isAllowed(url)
+        data['indexable'] = {
+          'robots': checker.isAllowed(url),
+        };
       })
     let htmlDoc = await fetch(url.href)
       .then(response => {
@@ -89,7 +91,6 @@ export default () => ({
           data['status'] = '';
         }
         data['headers'] = Object.fromEntries(response.headers);
-        console.log(url.href, response);
 
         if (!this.$store.stats.summary.urls.hasOwnProperty(data['status_code'])) {
           this.$store.stats.summary.urls[data['status_code']] = 0;
@@ -120,7 +121,7 @@ export default () => ({
           data['title'] = htmlDoc.querySelector('title').text || '';
           data['meta'] = this.findMeta(htmlDoc);
           data['link'] = this.findLinkTags(htmlDoc);
-
+          data['indexable']['meta'] = !htmlDoc.querySelector('meta[content="noindex"]')
 
           return htmlDoc;
         }

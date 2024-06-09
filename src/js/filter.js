@@ -13,6 +13,7 @@ export default () => ({
       if (i === -1) {
         this.code_filters.push({
           label: key === 'total' ? 'Все': key,
+          alt: key === 'total' ? 'Показать все страницы': 'Показать только ' + key + ' страницы',
           key: key,
           count: this.$store.stats.summary.urls[key],
         });

@@ -11,13 +11,12 @@ export default () => ({
       fetch(url)
         .then(result => result.text())
         .then(content => {
-          console.log('getParser');
           this.parser = robotsParser(url, content);
           resolve(this);
         })
     })
   },
   isAllowed(url) {
-    console.log(this.parser.isAllowed(url));
+    return this.parser.isAllowed(url);
   }
 })

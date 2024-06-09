@@ -12,6 +12,7 @@
             <button type="button"
                     class="col btn me-1"
                     x-bind:disabled="!$store.stats.summary.urls.total || $store.parse.run"
+                    x-bind:title="item.alt"
                     :class="active_code === item.key ? 'btn-primary' : 'btn-outline-primary'"
                     x-on:click="byCode(item.key)">
                 <span x-text="item.label"></span>

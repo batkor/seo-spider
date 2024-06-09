@@ -2,6 +2,7 @@ import Alpine from 'alpinejs'
 import table from './table.js'
 import parser from './parser/index.js'
 import statsDefault from './stats.js'
+import singleStat from './single_stat.js'
 
 Alpine.data('table', table)
 Alpine.data('parser', parser)
@@ -13,5 +14,6 @@ Alpine.store('parse', {
 });
 
 Alpine.store('stats', statsDefault());
+Alpine.store('single_stat', singleStat());
 
-Alpine.start()
+Alpine.start();

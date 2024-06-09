@@ -8,7 +8,8 @@
     </thead>
     <tbody>
     <template x-for="(itemUrl, indexUrl) in $store.parse.urls" :key="indexUrl">
-        <tr :class="getRowClasses(itemUrl)">
+        <tr :class="getRowClasses(itemUrl)"
+            x-on:click="$store.single_stat.show(indexUrl)">
             <template x-for="(itemColumn, indexColumn) in getColumns()" :key="indexColumn">
                 <th
                     :scope="itemColumn.id === 'delta' ? 'row' : ''"
