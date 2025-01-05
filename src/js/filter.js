@@ -15,7 +15,7 @@ export default () => ({
           label: key === 'total' ? 'Все': key,
           alt: key === 'total' ? 'Показать все страницы': 'Показать только ' + key + ' страницы',
           key: key,
-          count: this.$store.stats.summary.urls[key],
+          count: this.$store.stats.summary.urls[key] || 0,
         });
       }
       else {

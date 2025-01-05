@@ -53,3 +53,12 @@
 .reports-content .total-report.is-open:before {
   transform: rotate(90deg);
 }
+
+.table-single_stat {
+  display: grid;
+  grid-template-columns: 90px auto;
+}
+.single_stat .row_value {
+  word-wrap: break-word;
+  max-width: 300px;
+}

@@ -39,7 +39,7 @@ export default () => ({
       });
     })
   },
-  async request(url) {
+  async request(url, source) {
     if (this.$store.parse.urls.length >= 450 || this.$store.parse.run === false) {
       return;
     }
@@ -64,6 +64,7 @@ export default () => ({
 
     let data = {
       'url': url.href,
+      'source': source || url.href,
     };
     let startFetch = Date.now();
     IndexCheck
@@ -134,7 +135,7 @@ export default () => ({
 
     if (!!htmlDoc) {
       this.$store.stats.summary.html++;
-      await this.findLinks(htmlDoc);
+      await this.findLinks(htmlDoc, url.href);
     }
   },
   /**
@@ -185,7 +186,7 @@ export default () => ({
    *
    * @param {Document} html
    */
-  async findLinks(html) {
+  async findLinks(html, source) {
     let baseUrl = new URL(this.$store.parse.base_url);
     for (const aEl of html.querySelectorAll('a[href], img, link[rel="stylesheet"], script[src]')) {
       let href = aEl.getAttribute('href') ||
@@ -199,7 +200,7 @@ export default () => ({
         let currentUrl = new URL(href);
         if (baseUrl.hostname === currentUrl.hostname) {
           href = href.split('#')[0];
-          await this.request(href);
+          await this.request(href, source);
         }
       }
     }
